@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class ThreeSum {
 
     public static void main(String[] args) {
         ThreeSum threeSum = new ThreeSum();
-        int[] nums = {-1,0,1,2,-1,-4};
+        int[] nums = {13,-4,1,3,-1,-1,5,-11,13,9,4,7,5,-5,-13,-4,8,-3,14,-4,14,6,7,11,4,-6,-5,-9,14,3,-9,12,-15,0,-8,-9,14,4,-5,4,-1,-15,-12,-11,-13,-9,1,3,-5,0,14,-6,13,-1,12,2,8,-7,9,0,11,7,-11,3,-8,-11,1,13,8,4,-5,14,4,-2,11,-2,-4,-3,-14,6,4,8,7,3,-8,5,12,7,5,-2,-8,-7,13,-11,12,12,-7,-10,11,-14};
         List<List<Integer>> results = threeSum.threeSum(nums);
 
         System.out.println(results.size());
@@ -36,7 +37,7 @@ public class ThreeSum {
         /*
         remember each sums by two and their occurrence
          */
-        return solution2(nums);
+        return solution3(nums);
     }
 
     /**
@@ -173,5 +174,33 @@ public class ThreeSum {
         }
 
         return results;
+    }
+
+    /*
+    best solution, from leetcode
+     */
+    public List<List<Integer>> solution3(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            if(i != 0 && nums[i] == nums[i-1]){
+                continue;
+            }
+            int sum = -nums[i];
+            int j = i+1, k = nums.length-1;
+            while(j < k){
+                if(nums[j] + nums[k] == sum){
+                    result.add(Arrays.asList(nums[i], nums[j],nums[k]));
+                    while(j < k && nums[j] == nums[j+1]) j += 1;
+                    while(j < k && nums[k] == nums[k-1]) k -= 1;
+                    if( j < k) { j+=1;k-=1; }
+                }else if(nums[j]+nums[k] < sum){
+                    j += 1;
+                }else{
+                    k -= 1;
+                }
+            }
+        }
+        return result;
     }
 }
