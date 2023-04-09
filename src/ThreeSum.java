@@ -36,7 +36,7 @@ public class ThreeSum {
         /*
         remember each sums by two and their occurrence
          */
-        return solution2(nums);
+        return solution1(nums);
     }
 
     /**
@@ -46,16 +46,16 @@ public class ThreeSum {
      */
     private List<List<Integer>> solution1(int[] nums) {
         int length = nums.length;
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<List<Integer>> result = new ArrayList<>();
         /*
         iterate each combination of three
          */
         List<Integer> three = null;
         for (int i = 0; i < length; i++) {
             for (int j = i + 1; j < length; j++) {
-                for (int k = j; k < length; k++) {
+                for (int k = j + 1; k < length; k++) {
                     if(nums[i]+nums[j]+nums[k] == 0){
-                        three = new ArrayList<Integer>();
+                        three = new ArrayList<>();
                         three.add(nums[i]); three.add(nums[j]); three.add(nums[k]);
                         if(! isContained(result, three)){
                             result.add(three);
