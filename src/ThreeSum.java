@@ -67,8 +67,40 @@ public class ThreeSum {
         return result;
     }
 
-    private boolean isContained(List<List<Integer>> result, List<Integer> three) {
+    /**
+     * check whether results consists of three
+     * @param results
+     * @param three
+     * @return
+     */
+    private boolean isContained(List<List<Integer>> results, List<Integer> three) {
+        for(List<Integer> triplet: results){
+            if(isEqual(triplet, three)) return true;
+        }
         return false;
+    }
+
+    /**
+     * check whether the triplet and three are the same thing
+     * @param triplet
+     * @param three
+     * @return
+     */
+    private boolean isEqual(List<Integer> triplet, List<Integer> three) {
+        HashMap<Integer, Boolean> visits = new HashMap<>();
+        boolean found;
+        for(int x: triplet){
+            found = false;
+            for(int y: three){
+                if (x == y && !visits.getOrDefault(y, false)){
+                    visits.put(y, true);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found) return false;
+        }
+        return true;
     }
 
     /**
@@ -116,24 +148,26 @@ public class ThreeSum {
             /*
             if there is a counter part
              */
-            if(pairSums.get(0-nums[i]).size() != 0){
+            if(pairSums.get(-nums[i]).size() != 0){
                 /*
                 pair them
                  */
                 List<Integer> oneTriplet;
 
-                List<List<Integer>> list = pairSums.get(0-nums[i]);
+                List<List<Integer>> list = pairSums.get(-nums[i]);
 
                 for (List<Integer> counterPairs : list) {
                     oneTriplet = new ArrayList<>();
                     // make sure don't use the same element again
                     if (counterPairs.contains(i)) continue;
-                    int size = counterPairs.size();
-                    for (int k = 0; k < size; k++) {
-                        oneTriplet.add(nums[counterPairs.get(k)]);
+
+                    for (Integer index : counterPairs) {
+                        oneTriplet.add(nums[index]);
                     }
                     oneTriplet.add(nums[i]);
-                    results.add(oneTriplet);
+                    // check for duplicated
+                    if(!isContained(results, oneTriplet))
+                        results.add(oneTriplet);
                 }
             }
         }
