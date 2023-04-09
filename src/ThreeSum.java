@@ -36,7 +36,7 @@ public class ThreeSum {
         /*
         remember each sums by two and their occurrence
          */
-        return solution1(nums);
+        return solution2(nums);
     }
 
     /**
@@ -87,13 +87,13 @@ public class ThreeSum {
      * @return
      */
     private boolean isEqual(List<Integer> triplet, List<Integer> three) {
-        HashMap<Integer, Boolean> visits = new HashMap<>();
+        List<Integer> _three = new ArrayList<>(three);
         boolean found;
         for(int x: triplet){
             found = false;
-            for(int y: three){
-                if (x == y && !visits.getOrDefault(y, false)){
-                    visits.put(y, true);
+            for(Integer y: _three){
+                if (x == y){
+                    _three.remove(y);
                     found = true;
                     break;
                 }
@@ -108,7 +108,7 @@ public class ThreeSum {
      * @param nums
      * @return
      */
-    private List<List<Integer>> solution2(int[] nums) {
+    public List<List<Integer>> solution2(int[] nums) {
         int length = nums.length;
         /*
         initialize the map with the pair values we need
