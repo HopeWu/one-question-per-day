@@ -125,13 +125,13 @@ public class ThreeSum {
 
                 List<List<Integer>> list = pairSums.get(0-nums[i]);
 
-                for (int j = 0; j < list.size(); j++) {
+                for (List<Integer> counterPairs : list) {
                     oneTriplet = new ArrayList<>();
                     // make sure don't use the same element again
-                    if (list.get(j).contains(i)) continue;
-                    int size = list.get(j).size();
+                    if (counterPairs.contains(i)) continue;
+                    int size = counterPairs.size();
                     for (int k = 0; k < size; k++) {
-                        oneTriplet.add(nums[list.get(j).get(k)]);
+                        oneTriplet.add(nums[counterPairs.get(k)]);
                     }
                     oneTriplet.add(nums[i]);
                     results.add(oneTriplet);
