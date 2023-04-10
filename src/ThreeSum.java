@@ -203,4 +203,9 @@ public class ThreeSum {
         }
         return result;
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
