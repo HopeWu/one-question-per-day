@@ -36,10 +36,11 @@ public class SpiralMatrix {
             for (int i = 0; i < availableColumns; ++i) {
                 result.add(matrix[row][col]);
                 // before update the last one, change the direction
-                if (i == availableColumns - 1)
-                    this.updateDirection();
+                this.updateDirection();
+
                 this.updateRowCol();
             }
+
             availableRows -= 1;
 
             for (int i = 0; i < availableRows; ++i) {
